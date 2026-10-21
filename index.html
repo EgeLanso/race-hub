@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0c0e">
 <meta name="description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
-<!-- Paylaşım önizlemesi: KULLANICI ve REPO yerine kendi GitHub adın ve repo adını yaz -->
+<!-- Paylaşım önizlemesi: Bu Race Hub sayfasını yayımladıktan sonra og:url ve og:image alanlarını gerçek adresinle doldur. -->
 <meta property="og:type" content="website"><meta property="og:site_name" content="Race Hub">
 <meta property="og:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı"><meta property="og:description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
-<meta property="og:url" content="https://KULLANICI.github.io/REPO/"><meta property="og:image" content="https://KULLANICI.github.io/REPO/og.png">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı"><meta name="twitter:image" content="https://KULLANICI.github.io/REPO/og.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı">
+<!-- İsteğe bağlı: Gerçek og:url, og:image, og:image:width ve og:image:height meta etiketlerini yayın adresin belli olunca ekle. -->
 <title>Yarış Sayfamız & Benzin Hesaplayıcı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -224,8 +223,8 @@ footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;let
   <p class="lead rv d3" data-i18n="lead">Takımımızın yarış sayfasına göz at ya da yarış öncesi benzin hesaplayıcıyla stratejini planla.</p>
 
   <div class="cards">
-    <!-- ⬇️ BURAYA yarış sayfanın linkini yaz (örn: https://kullanici.github.io/crescent-motorsport/) -->
-    <a class="card race rv d4" href="https://kullanici.github.io/crescent-motorsport/">
+    <!-- Crescent Motorsport için doğrulanmış adres -->
+    <a class="card race rv d4" href="https://egelanso.github.io/crescent-motorsport/">
       <i class="ring"></i>
       <svg class="ico" width="56" height="56" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25" fill="none" stroke="#777d84"/><path d="M33 15a13 13 0 1 0 0 22" fill="none" stroke="#c5c9ce" stroke-width="6" stroke-linecap="round"/></svg>
       <span class="tag" data-i18n="raceTag">TAKIM SAYFASI</span>
@@ -234,8 +233,8 @@ footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;let
       <span class="go"><span data-i18n="raceGo">SAYFAYA GİT</span> <b>→</b></span>
     </a>
 
-    <!-- ⬇️ BURAYA benzin hesaplayıcının linkini yaz (örn: https://kullanici.github.io/apex-fuel/) -->
-    <a class="card fuel rv d5" href="https://kullanici.github.io/apex-fuel/">
+    <!-- TODO: Apex Fuel Calculator yayımlanınca aşağıdaki href değerini gerçek GitHub Pages adresinle değiştir. -->
+    <a class="card fuel rv d5" href="#fuel-link-not-configured" data-needs-url="true">
       <i class="ring"></i>
       <svg class="ico" width="56" height="56" viewBox="0 0 52 52" aria-hidden="true"><rect x="10" y="8" width="24" height="36" rx="3" fill="#ff6b2c"/><rect x="14" y="13" width="16" height="11" rx="2" fill="#1fb6d6"/><rect x="7" y="44" width="30" height="4" rx="2" fill="#35566b"/><path d="M34 18h4a3 3 0 0 1 3 3v15" fill="none" stroke="#35566b" stroke-width="3" stroke-linecap="round"/></svg>
       <svg class="gauge" viewBox="0 0 64 64" aria-hidden="true"><circle class="bgc" cx="32" cy="32" r="28"/><circle class="fg" cx="32" cy="32" r="28"/></svg>
@@ -366,7 +365,7 @@ function apply(choice){
   document.documentElement.lang=code;
   document.documentElement.dir = code==='ar' ? 'rtl' : 'ltr';
   document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n]; if(v) el.textContent=v});
-  const items=d.mq.map(t=>'<span>'+t+'</span><span><em>◆</em></span>').join('');
+  const items=d.mq.map(t=>'<span>'+esc(t)+'</span><span><em>◆</em></span>').join('');
   document.getElementById('mq').innerHTML=items+items+items+items;
   document.title=d.raceTitle+' & '+d.fuelTitle;
   renderSoc(code);
@@ -403,7 +402,8 @@ function renderDrivers(){
 }
 function renderSoc(code){
   curLang=code||curLang; const d=T[curLang];
-  const all=(remoteLinks&&remoteLinks.length)?remoteLinks:staticLinks;
+  // null = Supabase verisi yüklenemedi; [] = veritabanında bilerek hiç link yok.
+  const all=remoteLinks!==null ? remoteLinks : staticLinks;
   const dcUrl=(all.find(x=>x.kind==='discord')||{}).url || (isUrl(LINKS.discord)?LINKS.discord:'');
   const dc=document.getElementById('dc'); dc.hidden=!dcUrl; if(dcUrl) dc.href=dcUrl;
   const items=all.filter(x=>x.kind!=='discord'&&isUrl(x.url));
@@ -412,7 +412,7 @@ function renderSoc(code){
   document.getElementById('social').hidden=!(dcUrl||items.length);
   document.getElementById('pil').innerHTML=d.mq.slice(3,6).map((t,i)=>`<span><em>0${i+1}</em>${esc(t)}</span>`).join('');
 }
-function setRemote(links,drivers){ if(links) remoteLinks=links; if(drivers) remoteDrivers=drivers; renderDrivers(); renderSoc(); }
+function setRemote(links,drivers){ if(links!==undefined && links!==null) remoteLinks=links; if(drivers!==undefined && drivers!==null) remoteDrivers=drivers; renderDrivers(); renderSoc(); }
 // kaydırınca belirme
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.sr').forEach(el=>io.observe(el));
@@ -436,6 +436,8 @@ if(matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion:r
   });
 }
 document.getElementById('y').textContent=new Date().getFullYear();
+// Henüz gerçek adresi girilmemiş uygulama kartının yanlış yere gitmesini engelle.
+document.querySelectorAll('[data-needs-url="true"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();alert('Apex Fuel Calculator bağlantısı henüz ayarlanmamış. HTML içindeki bu kartın href değerini gerçek uygulama adresinle değiştir.')}));
 </script>
 
 <script type="module">
@@ -483,7 +485,7 @@ if(sb){
   function reset(){$('linkF').reset();$('fId').value='';$('fSave').textContent='KAYDET';$('fCancel').hidden=true}
   $('fCancel').addEventListener('click',()=>{reset();msg('')});
   function renderList(){
-    $('fList').innerHTML=links.length?links.map(x=>`<div class="li"><span class="k">${kindName[x.kind]||x.kind}</span><span class="n" title="${esc(x.url)}">${esc(x.name)} · ${esc(x.url)}</span><button data-e="${x.id}">DÜZENLE</button><button class="del" data-d="${x.id}">SİL</button></div>`).join(''):'<p class="sub" style="margin-top:14px">Henüz link yok. Yukarıdan ekle. (Hiç link eklenmezse sayfa koddaki varsayılan linkleri kullanır.)</p>';
+    $('fList').innerHTML=links.length?links.map(x=>`<div class="li"><span class="k">${esc(kindName[x.kind]||x.kind)}</span><span class="n" title="${esc(x.url)}">${esc(x.name)} · ${esc(x.url)}</span><button type="button" data-e="${esc(x.id)}">DÜZENLE</button><button type="button" class="del" data-d="${esc(x.id)}">SİL</button></div>`).join(''):'<p class="sub" style="margin-top:14px">Veritabanında henüz link yok. Yukarıdan ekleyebilirsin.</p>';
   }
   $('fList').addEventListener('click',async e=>{
     const ed=e.target.dataset.e, dl=e.target.dataset.d;
@@ -493,6 +495,8 @@ if(sb){
   $('linkF').addEventListener('submit',async e=>{
     e.preventDefault(); if(!isAdmin){msg('Yetki yok.');return}
     const row={kind:$('fKind').value,name:$('fName').value.trim(),url:$('fUrl').value.trim(),sort:parseInt($('fSort').value||'0',10)||0};
+    let parsedUrl; try { parsedUrl=new URL(row.url); } catch (_) { msg('Geçerli bir bağlantı gir.'); return; }
+    if(!['https:','http:'].includes(parsedUrl.protocol)){msg('Bağlantı http:// veya https:// ile başlamalı.');return}
     const id=$('fId').value;
     const {error}=id?await sb.from('site_links').update(row).eq('id',id):await sb.from('site_links').insert(row);
     if(error){msg('Kaydedilemedi: '+error.message+(error.code==='42P01'?' (site_links tablosunu oluşturdun mu? site_links.sql dosyasını Supabase SQL Editor\'da çalıştır.)':''));return}
