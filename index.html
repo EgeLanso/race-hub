@@ -234,7 +234,7 @@ footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;let
     </a>
 
     <!-- TODO: Apex Fuel Calculator yayımlanınca aşağıdaki href değerini gerçek GitHub Pages adresinle değiştir. -->
-    <a class="card fuel rv d5" href="#fuel-link-not-configured" data-needs-url="true">
+    <a class="card fuel rv d5" href="https://egelanso.github.io/apex-fuel/">
       <i class="ring"></i>
       <svg class="ico" width="56" height="56" viewBox="0 0 52 52" aria-hidden="true"><rect x="10" y="8" width="24" height="36" rx="3" fill="#ff6b2c"/><rect x="14" y="13" width="16" height="11" rx="2" fill="#1fb6d6"/><rect x="7" y="44" width="30" height="4" rx="2" fill="#35566b"/><path d="M34 18h4a3 3 0 0 1 3 3v15" fill="none" stroke="#35566b" stroke-width="3" stroke-linecap="round"/></svg>
       <svg class="gauge" viewBox="0 0 64 64" aria-hidden="true"><circle class="bgc" cx="32" cy="32" r="28"/><circle class="fg" cx="32" cy="32" r="28"/></svg>
@@ -436,8 +436,6 @@ if(matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion:r
   });
 }
 document.getElementById('y').textContent=new Date().getFullYear();
-// Henüz gerçek adresi girilmemiş uygulama kartının yanlış yere gitmesini engelle.
-document.querySelectorAll('[data-needs-url="true"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();alert('Apex Fuel Calculator bağlantısı henüz ayarlanmamış. HTML içindeki bu kartın href değerini gerçek uygulama adresinle değiştir.')}));
 </script>
 
 <script type="module">
