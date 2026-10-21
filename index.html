@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0c0e">
+<meta name="description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
+<!-- Paylaşım önizlemesi: KULLANICI ve REPO yerine kendi GitHub adın ve repo adını yaz -->
+<meta property="og:type" content="website"><meta property="og:site_name" content="Race Hub">
+<meta property="og:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı"><meta property="og:description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
+<meta property="og:url" content="https://KULLANICI.github.io/REPO/"><meta property="og:image" content="https://KULLANICI.github.io/REPO/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı"><meta name="twitter:image" content="https://KULLANICI.github.io/REPO/og.png">
 <title>Yarış Sayfamız & Benzin Hesaplayıcı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -387,7 +394,12 @@ const staticLinks=[
 let remoteLinks=null, remoteDrivers=null, curLang='tr';
 function renderDrivers(){
   const list=(remoteDrivers&&remoteDrivers.length)?remoteDrivers:DRIVERS;
-  document.getElementById('drv').innerHTML=list.map(d=>`<div class="drv"><span class="no">${esc(d.no)}</span><b>${esc(d.name)}</b><small>${esc(d.role)}</small></div>`).join('');
+  const base=(document.querySelector('.card.race')||{}).getAttribute&&document.querySelector('.card.race').getAttribute('href');
+  const canLink=isUrl(base);
+  document.getElementById('drv').innerHTML=list.map(d=>{
+    const inner=`<span class="no">${esc(d.no)}</span><b>${esc(d.name)}</b><small>${esc(d.role)}</small>`;
+    return (canLink&&d.id)?`<a class="drv" href="${esc(base.split('#')[0])}#pilot=${encodeURIComponent(d.id)}" target="_blank" rel="noopener">${inner}</a>`:`<div class="drv">${inner}</div>`;
+  }).join('');
 }
 function renderSoc(code){
   curLang=code||curLang; const d=T[curLang];
@@ -436,9 +448,9 @@ if(sb){
   async function loadPublic(){
     const [l,d]=await Promise.all([
       sb.from('site_links').select('*').order('sort').order('created_at'),
-      sb.from('drivers').select('name,number,tag').order('number',{nullsFirst:false}).order('name')
+      sb.from('drivers').select('id,name,number,tag').order('number',{nullsFirst:false}).order('name')
     ]);
-    window.setRemote(l.error?null:l.data, d.error?null:(d.data||[]).map(x=>({no:pad(x.number),name:x.name,role:x.tag||'Driver'})));
+    window.setRemote(l.error?null:l.data, d.error?null:(d.data||[]).map(x=>({id:x.id,no:pad(x.number),name:x.name,role:x.tag||'Driver'})));
     return l.data||[];
   }
   let links=[]; try{ links=await loadPublic(); }catch(e){ console.warn(e); }
