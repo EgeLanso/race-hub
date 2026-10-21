@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0c0e">
+<title>Yarış Sayfamız & Benzin Hesaplayıcı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0b0d;--panel:#121417;--line:#2a2d32;--text:#f1f2f3;--muted:#8e939a;--silver:#c5c9ce;--orange:#ff6b2c;--font:Inter,system-ui,sans-serif;--display:'Barlow Condensed',Impact,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font:15px/1.6 var(--font);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* ---------- background ---------- */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;animation:float 14s ease-in-out infinite}
+.glow.a{width:520px;height:520px;left:-120px;top:-120px;background:#4a5058}
+.glow.b{width:480px;height:480px;right:-140px;bottom:-100px;background:#7a2f12;animation-delay:-6s}
+.glow.c{width:300px;height:300px;left:55%;top:30%;background:#2a3a4a;opacity:.2;animation-delay:-3s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,40px)}}
+.grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 30%,#000 0,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 0,transparent 70%)}
+.track{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+.track path{fill:none;stroke:#ffffff14;stroke-width:2}
+.track .car{fill:none;stroke:url(#tg);stroke-width:3;stroke-linecap:round;stroke-dasharray:90 2400;animation:lap 9s linear infinite}
+.track .car.two{animation-duration:12s;animation-delay:-5s;stroke:url(#tg2)}
+@keyframes lap{to{stroke-dashoffset:-2490}}
+
+.bar{height:3px;background:linear-gradient(90deg,var(--silver),#fff 50%,var(--orange));background-size:200% 100%;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:200% 0}}
+
+/* ---------- header ---------- */
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(20px,5vw,60px)}
+.logo{display:flex;align-items:center;gap:12px;font:700 13px/1 var(--font);letter-spacing:.22em}
+.logo i{width:30px;height:30px;border:5px solid var(--silver);border-right-color:transparent;border-radius:50%;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lang{position:relative}
+.lang select{appearance:none;-webkit-appearance:none;background:#ffffff0d;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:9px 38px 9px 16px;font:600 12px var(--font);cursor:pointer;backdrop-filter:blur(8px);transition:border-color .2s,background .2s}
+.lang select:hover{border-color:#8a9096;background:#ffffff14}
+.lang select option{background:#15171a;color:#fff}
+.lang::after{content:"▾";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none;color:var(--muted)}
+
+/* ---------- hero ---------- */
+main{flex:1;width:100%;max-width:1100px;margin:0 auto;padding:clamp(24px,6vw,70px) 20px 40px}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.2em;margin:0 0 16px}
+.dot{width:8px;height:8px;border-radius:50%;background:#59d98e;box-shadow:0 0 0 0 #59d98e88;animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px #59d98e00}100%{box-shadow:0 0 0 0 #59d98e00}}
+h1{margin:0 0 16px;font:800 clamp(46px,9vw,98px)/.92 var(--display);text-transform:uppercase}
+h1 span{display:block;background:linear-gradient(90deg,var(--silver),#fff,var(--orange),var(--silver));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+.lead{max-width:560px;color:var(--muted);margin:0 0 46px;font-size:16px}
+
+/* ---------- cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;perspective:1200px}
+.card{--mx:50%;--my:50%;position:relative;display:flex;flex-direction:column;min-height:320px;padding:30px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(160deg,#16181c,#0f1114);overflow:hidden;transition:transform .15s ease-out,border-color .25s,box-shadow .25s;transform-style:preserve-3d}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),var(--spot),transparent 60%);opacity:0;transition:opacity .25s}
+.card:hover::before{opacity:1}
+.card.race{--spot:#c5c9ce22}
+.card.fuel{--spot:#ff6b2c2b}
+.card.race:hover{border-color:#9aa0a6;box-shadow:0 20px 60px -20px #c5c9ce33}
+.card.fuel:hover{border-color:var(--orange);box-shadow:0 20px 60px -20px #ff6b2c55}
+.card>*{position:relative}
+.ico{margin-bottom:auto;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.card:hover .ico{transform:scale(1.12) rotate(-6deg)}
+.tag{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--muted);margin:28px 0 8px}
+.card.fuel .tag{color:var(--orange)}
+.card h2{margin:0 0 10px;font:800 clamp(34px,4.5vw,46px)/1 var(--display);text-transform:uppercase}
+.card p{margin:0 0 22px;color:var(--muted);font-size:14px}
+.go{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.14em}
+.go b{display:inline-block;transition:transform .25s}
+.card:hover .go b{transform:translateX(8px)}
+.card .ring{position:absolute;right:-70px;top:-70px;width:200px;height:200px;border-radius:50%;opacity:.14;transition:transform 1.2s,opacity .3s}
+.card.race .ring{border:28px solid var(--silver)}
+.card.fuel .ring{background:var(--orange);filter:blur(46px)}
+.card:hover .ring{transform:rotate(180deg) scale(1.15);opacity:.28}
+
+/* ---------- fuel gauge (decor) ---------- */
+.gauge{position:absolute;right:26px;top:26px;width:64px;height:64px}
+.gauge circle{fill:none;stroke-width:6}
+.gauge .bgc{stroke:#ffffff12}
+.gauge .fg{stroke:var(--orange);stroke-linecap:round;stroke-dasharray:176;stroke-dashoffset:176;animation:fill 3.4s ease-in-out infinite;transform:rotate(-90deg);transform-origin:center}
+@keyframes fill{0%{stroke-dashoffset:176}60%,80%{stroke-dashoffset:50}100%{stroke-dashoffset:176}}
+
+/* ---------- marquee ---------- */
+.marquee{margin-top:56px;border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee div{display:inline-block;padding:14px 0;animation:slide 32s linear infinite;font:700 22px var(--display);letter-spacing:.18em;color:#ffffff30;text-transform:uppercase}
+.marquee span{margin:0 22px}
+.marquee em{font-style:normal;color:var(--orange)}
+[dir=rtl] .marquee div{animation-direction:reverse}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;letter-spacing:.12em}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(24px);animation:up .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.38s}.d5{animation-delay:.5s}
+
+@media(max-width:760px){.cards{grid-template-columns:1fr}.card{min-height:260px}.gauge{width:52px;height:52px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <div class="glow a"></div><div class="glow b"></div><div class="glow c"></div>
+  <div class="grid"></div>
+  <svg class="track" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="tg"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
+      <linearGradient id="tg2"><stop offset="0" stop-color="#ff6b2c" stop-opacity="0"/><stop offset="1" stop-color="#ff6b2c"/></linearGradient>
+    </defs>
+    <path id="tp" d="M150 560 C120 420 230 330 380 360 C520 390 560 250 700 220 C860 185 990 260 1010 380 C1030 500 930 560 820 585 C700 612 640 700 500 700 C330 700 180 690 150 560Z"/>
+    <use href="#tp" class="car"/>
+    <use href="#tp" class="car two"/>
+  </svg>
+</div>
+
+<div class="bar"></div>
+<header>
+  <div class="logo rv"><i></i><span>RACE HUB</span></div>
+  <label class="lang rv d1">
+    <span class="sr" style="position:absolute;left:-9999px" data-i18n="language">Dil</span>
+    <select id="lang" aria-label="Language">
+      <option value="auto">🌐 Auto</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="pt">🇵🇹 Português</option>
+      <option value="nl">🇳🇱 Nederlands</option>
+      <option value="pl">🇵🇱 Polski</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ar">🇸🇦 العربية</option>
+      <option value="hi">🇮🇳 हिन्दी</option>
+    </select>
+  </label>
+</header>
+
+<main>
+  <p class="eyebrow rv d1"><span class="dot"></span><span data-i18n="eyebrow">SİM RACING · TAKIM &amp; ARAÇLAR</span></p>
+  <h1 class="rv d2"><b data-i18n="h1a" style="font-weight:inherit">Pist başına</b><span data-i18n="h1b">hoş geldin.</span></h1>
+  <p class="lead rv d3" data-i18n="lead">Takımımızın yarış sayfasına göz at ya da yarış öncesi benzin hesaplayıcıyla stratejini planla.</p>
+
+  <div class="cards">
+    <!-- ⬇️ BURAYA yarış sayfanın linkini yaz (örn: https://kullanici.github.io/crescent-motorsport/) -->
+    <a class="card race rv d4" href="https://egelanso.github.io/crescent-motorsport/">
+      <i class="ring"></i>
+      <svg class="ico" width="56" height="56" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25" fill="none" stroke="#777d84"/><path d="M33 15a13 13 0 1 0 0 22" fill="none" stroke="#c5c9ce" stroke-width="6" stroke-linecap="round"/></svg>
+      <span class="tag" data-i18n="raceTag">TAKIM SAYFASI</span>
+      <h2 data-i18n="raceTitle">Yarış Sayfamız</h2>
+      <p data-i18n="raceDesc">Pilotlar, yarış sonuçları, tur zamanları ve takvim.</p>
+      <span class="go"><span data-i18n="raceGo">SAYFAYA GİT</span> <b>→</b></span>
+    </a>
+
+    <!-- ⬇️ BURAYA benzin hesaplayıcının linkini yaz (örn: https://kullanici.github.io/apex-fuel/) -->
+    <a class="card fuel rv d5" href="https://egelanso.github.io/apex-fuel/">
+      <i class="ring"></i>
+      <svg class="ico" width="56" height="56" viewBox="0 0 52 52" aria-hidden="true"><rect x="10" y="8" width="24" height="36" rx="3" fill="#ff6b2c"/><rect x="14" y="13" width="16" height="11" rx="2" fill="#1fb6d6"/><rect x="7" y="44" width="30" height="4" rx="2" fill="#35566b"/><path d="M34 18h4a3 3 0 0 1 3 3v15" fill="none" stroke="#35566b" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg class="gauge" viewBox="0 0 64 64" aria-hidden="true"><circle class="bgc" cx="32" cy="32" r="28"/><circle class="fg" cx="32" cy="32" r="28"/></svg>
+      <span class="tag" data-i18n="fuelTag">UYGULAMA</span>
+      <h2 data-i18n="fuelTitle">Benzin Hesaplayıcı</h2>
+      <p data-i18n="fuelDesc">Yakıt miktarı, pit stop ve stint planı. 15 dil desteği.</p>
+      <span class="go"><span data-i18n="fuelGo">UYGULAMAYI AÇ</span> <b>→</b></span>
+    </a>
+  </div>
+
+  <div class="marquee rv d5" aria-hidden="true"><div id="mq"></div></div>
+</main>
+<footer>© <span id="y"></span></footer>
+
+<script>
+const T={
+tr:{language:'Dil',eyebrow:'SİM RACING · TAKIM & ARAÇLAR',h1a:'Pist başına',h1b:'hoş geldin.',lead:'Takımımızın yarış sayfasına göz at ya da yarış öncesi benzin hesaplayıcıyla stratejini planla.',raceTag:'TAKIM SAYFASI',raceTitle:'Yarış Sayfamız',raceDesc:'Pilotlar, yarış sonuçları, tur zamanları ve takvim.',raceGo:'SAYFAYA GİT',fuelTag:'UYGULAMA',fuelTitle:'Benzin Hesaplayıcı',fuelDesc:'Yakıt miktarı, pit stop ve stint planı. 15 dil desteği.',fuelGo:'UYGULAMAYI AÇ',mq:['Temiz yarış','Her turda daha ileri','Dayanıklılık ruhu','Disiplin','Saygı','Gelişim']},
+en:{language:'Language',eyebrow:'SIM RACING · TEAM & TOOLS',h1a:'Welcome to',h1b:'the pit lane.',lead:'Check out our team’s racing page or plan your strategy with the fuel calculator before the race.',raceTag:'TEAM PAGE',raceTitle:'Our Racing Page',raceDesc:'Drivers, race results, lap times and calendar.',raceGo:'GO TO PAGE',fuelTag:'APP',fuelTitle:'Fuel Calculator',fuelDesc:'Fuel amount, pit stops and stint plan. 15 languages supported.',fuelGo:'OPEN THE APP',mq:['Race clean','Faster every lap','Endurance spirit','Discipline','Respect','Progress']},
+de:{language:'Sprache',eyebrow:'SIM RACING · TEAM & TOOLS',h1a:'Willkommen in',h1b:'der Boxengasse.',lead:'Sieh dir die Rennseite unseres Teams an oder plane vor dem Rennen deine Strategie mit dem Spritrechner.',raceTag:'TEAMSEITE',raceTitle:'Unsere Rennseite',raceDesc:'Fahrer, Rennergebnisse, Rundenzeiten und Kalender.',raceGo:'ZUR SEITE',fuelTag:'APP',fuelTitle:'Spritrechner',fuelDesc:'Kraftstoffmenge, Boxenstopps und Stint-Plan. 15 Sprachen.',fuelGo:'APP ÖFFNEN',mq:['Fair racen','Jede Runde schneller','Ausdauergeist','Disziplin','Respekt','Fortschritt']},
+fr:{language:'Langue',eyebrow:'SIM RACING · ÉQUIPE & OUTILS',h1a:'Bienvenue dans',h1b:'la pit lane.',lead:'Découvre la page course de notre équipe ou prépare ta stratégie avec le calculateur de carburant avant la course.',raceTag:'PAGE D’ÉQUIPE',raceTitle:'Notre page course',raceDesc:'Pilotes, résultats, temps au tour et calendrier.',raceGo:'ALLER À LA PAGE',fuelTag:'APPLICATION',fuelTitle:'Calculateur de carburant',fuelDesc:'Quantité de carburant, arrêts et plan de relais. 15 langues.',fuelGo:'OUVRIR L’APPLI',mq:['Course propre','Plus vite à chaque tour','Esprit d’endurance','Discipline','Respect','Progression']},
+es:{language:'Idioma',eyebrow:'SIM RACING · EQUIPO Y HERRAMIENTAS',h1a:'Bienvenido a',h1b:'boxes.',lead:'Mira la página de carreras de nuestro equipo o planifica tu estrategia con la calculadora de combustible antes de la carrera.',raceTag:'PÁGINA DEL EQUIPO',raceTitle:'Nuestra página de carreras',raceDesc:'Pilotos, resultados, tiempos por vuelta y calendario.',raceGo:'IR A LA PÁGINA',fuelTag:'APP',fuelTitle:'Calculadora de combustible',fuelDesc:'Cantidad de combustible, paradas y plan de stints. 15 idiomas.',fuelGo:'ABRIR LA APP',mq:['Carrera limpia','Más rápido cada vuelta','Espíritu de resistencia','Disciplina','Respeto','Progreso']},
+it:{language:'Lingua',eyebrow:'SIM RACING · TEAM E STRUMENTI',h1a:'Benvenuto nella',h1b:'pit lane.',lead:'Dai un’occhiata alla pagina gare del nostro team o pianifica la strategia con il calcolatore di carburante prima della gara.',raceTag:'PAGINA DEL TEAM',raceTitle:'La nostra pagina gare',raceDesc:'Piloti, risultati, tempi sul giro e calendario.',raceGo:'VAI ALLA PAGINA',fuelTag:'APP',fuelTitle:'Calcolatore carburante',fuelDesc:'Quantità di carburante, pit stop e piano stint. 15 lingue.',fuelGo:'APRI L’APP',mq:['Gara pulita','Più veloci ogni giro','Spirito endurance','Disciplina','Rispetto','Progresso']},
+pt:{language:'Idioma',eyebrow:'SIM RACING · EQUIPE E FERRAMENTAS',h1a:'Bem-vindo ao',h1b:'pit lane.',lead:'Veja a página de corridas da nossa equipe ou planeje a estratégia com a calculadora de combustível antes da corrida.',raceTag:'PÁGINA DA EQUIPE',raceTitle:'Nossa página de corridas',raceDesc:'Pilotos, resultados, tempos de volta e calendário.',raceGo:'IR PARA A PÁGINA',fuelTag:'APP',fuelTitle:'Calculadora de combustível',fuelDesc:'Quantidade de combustível, paradas e plano de stints. 15 idiomas.',fuelGo:'ABRIR O APP',mq:['Corrida limpa','Mais rápido a cada volta','Espírito de resistência','Disciplina','Respeito','Progresso']},
+nl:{language:'Taal',eyebrow:'SIM RACING · TEAM & TOOLS',h1a:'Welkom in',h1b:'de pitstraat.',lead:'Bekijk de racepagina van ons team of plan je strategie met de brandstofcalculator voor de race.',raceTag:'TEAMPAGINA',raceTitle:'Onze racepagina',raceDesc:'Coureurs, raceresultaten, rondetijden en kalender.',raceGo:'NAAR DE PAGINA',fuelTag:'APP',fuelTitle:'Brandstofcalculator',fuelDesc:'Brandstofhoeveelheid, pitstops en stintplan. 15 talen.',fuelGo:'OPEN DE APP',mq:['Schoon racen','Elke ronde sneller','Uithoudingsvermogen','Discipline','Respect','Vooruitgang']},
+pl:{language:'Język',eyebrow:'SIM RACING · ZESPÓŁ I NARZĘDZIA',h1a:'Witaj w',h1b:'alei serwisowej.',lead:'Zajrzyj na stronę wyścigową naszego zespołu lub zaplanuj strategię kalkulatorem paliwa przed wyścigiem.',raceTag:'STRONA ZESPOŁU',raceTitle:'Nasza strona wyścigowa',raceDesc:'Kierowcy, wyniki, czasy okrążeń i kalendarz.',raceGo:'PRZEJDŹ DO STRONY',fuelTag:'APLIKACJA',fuelTitle:'Kalkulator paliwa',fuelDesc:'Ilość paliwa, pit stopy i plan przejazdów. 15 języków.',fuelGo:'OTWÓRZ APLIKACJĘ',mq:['Czysta jazda','Szybciej z każdym okrążeniem','Duch wytrzymałości','Dyscyplina','Szacunek','Postęp']},
+ru:{language:'Язык',eyebrow:'СИМ-РЕЙСИНГ · КОМАНДА И ИНСТРУМЕНТЫ',h1a:'Добро пожаловать',h1b:'в пит-лейн.',lead:'Загляни на гоночную страницу нашей команды или спланируй стратегию в калькуляторе топлива перед гонкой.',raceTag:'СТРАНИЦА КОМАНДЫ',raceTitle:'Наша гоночная страница',raceDesc:'Пилоты, результаты, время круга и календарь.',raceGo:'ПЕРЕЙТИ',fuelTag:'ПРИЛОЖЕНИЕ',fuelTitle:'Калькулятор топлива',fuelDesc:'Количество топлива, пит-стопы и план стинтов. 15 языков.',fuelGo:'ОТКРЫТЬ',mq:['Чистая гонка','Быстрее с каждым кругом','Дух выносливости','Дисциплина','Уважение','Прогресс']},
+ja:{language:'言語',eyebrow:'シムレーシング · チーム＆ツール',h1a:'ようこそ',h1b:'ピットレーンへ。',lead:'チームのレースページを見るか、レース前に燃料計算機で戦略を立てましょう。',raceTag:'チームページ',raceTitle:'レースページ',raceDesc:'ドライバー、結果、ラップタイム、カレンダー。',raceGo:'ページへ',fuelTag:'アプリ',fuelTitle:'燃料計算機',fuelDesc:'燃料量、ピットストップ、スティント計画。15言語対応。',fuelGo:'アプリを開く',mq:['クリーンなレース','毎周、さらに速く','耐久の精神','規律','敬意','進歩']},
+ko:{language:'언어',eyebrow:'심 레이싱 · 팀 & 도구',h1a:'피트 레인에',h1b:'오신 것을 환영합니다.',lead:'팀의 레이스 페이지를 둘러보거나 레이스 전에 연료 계산기로 전략을 세워 보세요.',raceTag:'팀 페이지',raceTitle:'레이스 페이지',raceDesc:'드라이버, 레이스 결과, 랩 타임, 일정.',raceGo:'페이지로 이동',fuelTag:'앱',fuelTitle:'연료 계산기',fuelDesc:'연료량, 피트 스톱, 스틴트 계획. 15개 언어 지원.',fuelGo:'앱 열기',mq:['클린 레이스','매 랩 더 빠르게','내구의 정신','규율','존중','발전']},
+zh:{language:'语言',eyebrow:'模拟赛车 · 车队与工具',h1a:'欢迎来到',h1b:'维修区。',lead:'浏览车队的比赛页面，或在比赛前用燃油计算器规划你的策略。',raceTag:'车队页面',raceTitle:'我们的比赛页面',raceDesc:'车手、比赛结果、单圈时间和赛程。',raceGo:'前往页面',fuelTag:'应用',fuelTitle:'燃油计算器',fuelDesc:'燃油量、进站和分段计划。支持15种语言。',fuelGo:'打开应用',mq:['干净比赛','每圈更快','耐力精神','纪律','尊重','进步']},
+ar:{language:'اللغة',eyebrow:'سباقات المحاكاة · الفريق والأدوات',h1a:'مرحباً بك في',h1b:'منطقة الصيانة.',lead:'تصفّح صفحة سباقات فريقنا أو خطّط لاستراتيجيتك بحاسبة الوقود قبل السباق.',raceTag:'صفحة الفريق',raceTitle:'صفحة سباقاتنا',raceDesc:'السائقون ونتائج السباقات وأزمنة اللفات والجدول.',raceGo:'اذهب إلى الصفحة',fuelTag:'تطبيق',fuelTitle:'حاسبة الوقود',fuelDesc:'كمية الوقود وتوقفات الصيانة وخطة المراحل. يدعم 15 لغة.',fuelGo:'افتح التطبيق',mq:['سباق نظيف','أسرع في كل لفة','روح التحمّل','انضباط','احترام','تقدّم']},
+hi:{language:'भाषा',eyebrow:'सिम रेसिंग · टीम और टूल्स',h1a:'पिट लेन में',h1b:'आपका स्वागत है।',lead:'हमारी टीम का रेस पेज देखें या रेस से पहले फ्यूल कैलकुलेटर से अपनी रणनीति बनाएं।',raceTag:'टीम पेज',raceTitle:'हमारा रेस पेज',raceDesc:'ड्राइवर, रेस परिणाम, लैप टाइम और कैलेंडर।',raceGo:'पेज पर जाएं',fuelTag:'ऐप',fuelTitle:'फ्यूल कैलकुलेटर',fuelDesc:'ईंधन की मात्रा, पिट स्टॉप और स्टिंट प्लान। 15 भाषाएँ।',fuelGo:'ऐप खोलें',mq:['साफ़ रेसिंग','हर लैप में तेज़','सहनशक्ति की भावना','अनुशासन','सम्मान','प्रगति']}
+};
+const KEY='raceHubLang', sel=document.getElementById('lang');
+function detect(){
+  for(const l of (navigator.languages||[navigator.language||'en'])){const c=l.split('-')[0].toLowerCase();if(T[c])return c}
+  return 'en';
+}
+function apply(choice){
+  const code = choice==='auto' ? detect() : (T[choice]?choice:'en');
+  const d=T[code];
+  document.documentElement.lang=code;
+  document.documentElement.dir = code==='ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n]; if(v) el.textContent=v});
+  const items=d.mq.map(t=>'<span>'+t+'</span><span><em>◆</em></span>').join('');
+  document.getElementById('mq').innerHTML=items+items+items+items;
+  document.title=d.raceTitle+' & '+d.fuelTitle;
+}
+let saved='auto'; try{saved=localStorage.getItem(KEY)||'auto'}catch(e){}
+if(!T[saved] && saved!=='auto') saved='auto';
+sel.value=saved; apply(saved);
+sel.addEventListener('change',()=>{try{localStorage.setItem(KEY,sel.value)}catch(e){} apply(sel.value)});
+// Tarayıcı dili değişirse "Auto" modunda otomatik güncelle
+addEventListener('languagechange',()=>{if(sel.value==='auto')apply('auto')});
+
+// Kartlarda ışık takibi + hafif 3D eğim
+if(matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('pointermove',e=>{
+      const r=c.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+      c.style.setProperty('--mx',x+'px'); c.style.setProperty('--my',y+'px');
+      c.style.transform=`rotateX(${((y/r.height)-.5)*-5}deg) rotateY(${((x/r.width)-.5)*6}deg) translateY(-4px)`;
+    });
+    c.addEventListener('pointerleave',()=>{c.style.transform=''});
+  });
+}
+document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
