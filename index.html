@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0c0e">
 <meta name="description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
-<!-- Paylaşım önizlemesi: Bu Race Hub sayfasını yayımladıktan sonra og:url ve og:image alanlarını gerçek adresinle doldur. -->
 <meta property="og:type" content="website"><meta property="og:site_name" content="Race Hub">
 <meta property="og:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı"><meta property="og:description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı">
@@ -17,6 +16,7 @@
 <style>
 :root{--bg:#0f1011;--panel:#16181c;--line:#242729;--text:#f5f5f5;--muted:#9a9fa6;--silver:#d4d8dd;--accent:#e8b88e;--orange:#c77a48;--font:'Inter',system-ui,sans-serif;--display:'Barlow Condensed','Georgia',serif}
 *{box-sizing:border-box}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font:15px/1.6 var(--font);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
@@ -290,7 +290,7 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border:3px solid #111
   <div class="hr rv d1">
   <button id="admOpen" class="adm" type="button" hidden>ADMIN</button>
   <label class="lang">
-    <span class="sr" style="position:absolute;left:-9999px" data-i18n="language">Dil</span>
+    <span class="vh" data-i18n="language">Dil</span>
     <select id="lang" aria-label="Language">
       <option value="auto">🌐 Auto</option>
       <option value="tr">🇹🇷 Türkçe</option>
