@@ -220,47 +220,75 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{ou
 
 </style>
 
-<style id="race-hub-refinement">
-/* Race Hub — editorial team portal */
-:root{--bg:#0d0f11;--panel:#15181b;--line:#30353a;--text:#f1f1ed;--muted:#a1a6ab;--silver:#d7dadd;--accent:#d65b3c;--orange:#d65b3c;--font:'Inter',system-ui,sans-serif;--display:'Barlow Condensed','Arial Narrow',sans-serif}
-body{background:#0d0f11;color:var(--text);background-image:linear-gradient(90deg,transparent 0,transparent calc(100% - 1px),#ffffff03 calc(100% - 1px));background-size:88px 100%}
-.bar{height:2px;background:linear-gradient(90deg,#d7dadd 0%,#777e85 38%,#d65b3c 100%);animation:none}
-header{padding-top:20px;padding-bottom:20px;border-bottom:1px solid #282d31}
-.logo{letter-spacing:.24em}
-.logo i{border-color:#d7dadd;border-right-color:transparent}
-main{max-width:1120px;padding-top:clamp(38px,7vw,86px)}
-.eyebrow{font-size:10px;letter-spacing:.19em}
-.dot{background:#d65b3c;box-shadow:none;animation:none}
-h1{font-size:clamp(48px,8vw,92px);letter-spacing:-.035em;line-height:.91}
-h1 span{color:#d65b3c}
-.lead{max-width:570px;font-size:14px;line-height:1.85;margin-bottom:42px}
-.cards{gap:16px}
-.card{border-radius:3px;background:#131619;border:1px solid #30353a;min-height:290px;padding:30px;box-shadow:none;transition:transform .22s,border-color .22s,background .22s}
-.card:hover{transform:translateY(-3px);border-color:#697078;background:#171a1e}
-.card .ring{border-color:#343a40}
-.card .tag{letter-spacing:.17em;color:#b2b7bc}
-.card h2{font-size:clamp(27px,3vw,38px);letter-spacing:-.025em}
-.card p{max-width:310px;color:#a1a6ab;line-height:1.8}
-.card .go{color:#f1f1ed;letter-spacing:.13em}
-.card .go b{color:#d65b3c}
-.card.race .ico{color:#d7dadd}
-.card.fuel .ico rect:first-of-type{fill:#d65b3c}
-.sec{margin-top:74px}
-.sec-h{border-bottom-color:#34393e}
-.sec-h h3{letter-spacing:.11em}
-.drivers .drv,.drv{border-color:#30353a}
-.about,.discord{border-color:#30353a;background:#131619}
-.pillars{gap:10px}
-.pillars>*{border-radius:2px}
-.discord .btn,.pb{border-radius:2px}
-.discord .btn{border-color:#4a5056}
-footer{border-top:1px solid #272c31;color:#858b91;padding:22px}
-.mod .box{border-radius:3px;border-color:#3b4147;background:#121518}
-input,select,textarea{border-radius:2px}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #d65b3c;outline-offset:3px}
-::selection{background:#d65b3c;color:#fff}
-@media(max-width:760px){main{padding-top:40px}.card{min-height:250px;padding:24px}.sec{margin-top:52px}header{padding-inline:18px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+<style id="race-hub-nightshift">
+
+/* RACE HUB — SHARED BLACKTOP SYSTEM / TEAM PORTAL */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{color-scheme:dark;--bg:#090a0b;--panel:#111315;--line:#2d3033;--text:#f0eee8;--muted:#969ba0;--silver:#d4d6d7;--accent:#e86b45;--orange:#e86b45;--font:'Inter',Arial,sans-serif;--display:'Barlow Condensed','Arial Narrow',sans-serif}
+*{box-sizing:border-box}
+html{background:#090a0b;scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;min-height:100vh;background:#090a0b;color:#f0eee8;font:13px/1.65 var(--font);letter-spacing:0;background-image:linear-gradient(90deg,transparent calc(100% - 1px),#ffffff04 0);background-size:88px 100%}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16}.glow{display:none}.grid{opacity:.16;background-size:88px 88px;background-image:linear-gradient(#7b8085 1px,transparent 1px),linear-gradient(90deg,#7b8085 1px,transparent 1px);mask-image:linear-gradient(180deg,#000,transparent 70%)}.track{opacity:.045}
+.bar{height:4px;background:#e86b45;animation:none}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:17px clamp(16px,5vw,76px);border-bottom:1px solid #2d3033;background:#0b0c0d}
+.logo{display:flex;align-items:center;gap:12px;color:#f0eee8;font:800 12px var(--font);letter-spacing:.2em}
+.logo i{display:block;width:31px;height:31px;border:1px solid #d6d8d9;border-right-color:var(--accent);border-radius:50%;transform:rotate(-28deg);opacity:1}
+.hr{display:flex;align-items:center;gap:12px}.adm{border:1px solid #44484b;border-radius:2px;background:#141618;color:#dcdad4;font:600 9px var(--font);letter-spacing:.1em;padding:10px 13px}
+.lang select{min-height:36px;max-width:150px;padding:0 25px 0 10px;background:#111315;color:#f0eee8;border:1px solid #383c3f;border-radius:2px;font:11px var(--font)}
+.lang::after{color:#92979b}.lang select option{background:#111315;color:#f0eee8}
+main{position:relative;max-width:1280px;margin:0 auto;padding:clamp(38px,6vw,76px) clamp(16px,3vw,40px) 50px}
+.eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 18px;color:#9da2a6;font:500 9px 'DM Mono',monospace;letter-spacing:.16em;text-transform:uppercase}
+.dot{width:6px;height:6px;background:var(--accent);box-shadow:none;animation:none;border-radius:50%}
+h1{max-width:850px;margin:0 0 19px;font:600 clamp(48px,7vw,82px)/.91 var(--display);letter-spacing:-.02em;text-transform:uppercase}
+h1 b{font-weight:600!important;color:#f0eee8}h1 span{display:block;color:#8c9297}
+.lead{max-width:590px;margin:0 0 38px;color:#a0a5a9;font-size:13px;line-height:1.9}
+.cards{display:grid;grid-template-columns:1.08fr .92fr;gap:12px;align-items:stretch}
+.card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;min-height:330px;overflow:hidden;padding:clamp(22px,3vw,38px);border:1px solid #34383b;border-radius:2px;background:#111315;box-shadow:none;text-decoration:none;color:#f0eee8;transition:border-color .18s,background .18s}
+.card::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(110deg,#ffffff04,transparent 45%);pointer-events:none}
+.card::after{content:"";position:absolute;right:0;top:0;width:3px;height:100%;background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform .18s}
+.card:hover{transform:none;border-color:#686d71;background:#151719;box-shadow:none}.card:hover::after{transform:scaleY(1)}
+.card .ring{position:absolute;right:-50px;top:-55px;width:220px;height:220px;border:1px solid #3c4043;border-radius:50%;opacity:.45;pointer-events:none}
+.card .ico{width:42px;height:42px;margin-bottom:30px;position:relative;z-index:1}
+.card.race .ico circle{stroke:#7e858a}.card.race .ico path{stroke:#f0eee8}
+.card.fuel .ico rect:first-of-type{fill:var(--accent)}.card.fuel .ico rect:nth-of-type(2){fill:#202326}.card.fuel .ico path{stroke:#aeb3b7}
+.card .gauge{position:absolute;right:27px;top:27px;width:42px;height:42px;opacity:.7}
+.card .gauge .bgc{fill:none;stroke:#34383b;stroke-width:3}.card .gauge .fg{fill:none;stroke:var(--accent);stroke-width:3;stroke-dasharray:95 176;transform:rotate(-90deg);transform-origin:center}
+.card .tag{margin:0 0 12px;color:#a0a5a9;font:500 9px 'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase}
+.card.fuel .tag{color:var(--accent)}
+.card h2{max-width:520px;margin:0 0 12px;font:600 clamp(32px,4vw,47px)/.98 var(--display);letter-spacing:-.015em;text-transform:uppercase}
+.card p{max-width:370px;margin:0 0 25px;color:#a0a5a9;font-size:12px;line-height:1.8}
+.card .go{display:flex;align-items:center;gap:10px;margin-top:auto;color:#f0eee8;font:600 9px 'DM Mono',monospace;letter-spacing:.1em}
+.card .go b{color:var(--accent);font-size:17px;font-weight:400}
+.sec{margin-top:62px}.sec-h{display:flex;align-items:center;gap:16px;margin-bottom:15px;padding-bottom:12px;border-bottom:1px solid #303437}.sec-h h3{margin:0;font:600 27px var(--display);letter-spacing:.015em;text-transform:uppercase}.sec-h i{flex:1;height:1px;background:#303437}
+.drivers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.drivers .drv,.drv{min-width:0;padding:17px;border:1px solid #303437;border-radius:2px;background:#111315;color:#f0eee8}
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.8fr);align-items:start;gap:28px;padding:24px;border:1px solid #303437;border-radius:2px;background:#111315}
+.about p{margin:0;color:#a4a8ab;line-height:1.9}.pillars{display:flex;flex-wrap:wrap;gap:6px}
+.pillars>*{padding:7px 9px;border:1px solid #363a3d;border-radius:2px;background:#17191b;color:#d6d6d1;font:9px 'DM Mono',monospace;letter-spacing:.04em}
+.discord{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 22px;border:1px solid #383c3f;border-left:3px solid var(--accent);border-radius:2px;background:#111315;color:#f0eee8;text-decoration:none}
+.discord h4{margin:0 0 5px;font-size:13px}.discord p{margin:0;color:#a0a5a9;font-size:11px}.discord .btn{display:inline-flex;align-items:center;gap:14px;padding:10px 12px;border:1px solid #414548;border-radius:2px;background:#191b1e;color:#f0eee8;font:600 9px 'DM Mono',monospace;white-space:nowrap}
+.socials{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.socials a{padding:10px 12px;border:1px solid #303437;border-radius:2px;background:#101214;color:#bfc2c3;font:500 10px var(--font);text-decoration:none}.socials a:hover{border-color:#707579;color:#fff}
+.marquee{overflow:hidden;margin-top:56px;padding:13px 0;border-block:1px solid #303437;background:#0c0d0e;color:#858b90;font:500 9px 'DM Mono',monospace;letter-spacing:.16em;text-transform:uppercase}
+.marquee #mq{white-space:nowrap}
+footer{padding:22px clamp(16px,5vw,76px);border-top:1px solid #292c2f;background:#090a0b;color:#7c8286;font:9px 'DM Mono',monospace;letter-spacing:.12em;text-align:center}
+.mod[hidden]{display:none!important}.mod{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px}
+.mod .bk{position:absolute;inset:0;background:#000c}
+.mod .box{position:relative;z-index:1;width:min(520px,100%);max-height:min(88vh,900px);overflow:auto;padding:25px;border:1px solid #424649;border-radius:3px;background:#121416;color:#f0eee8;box-shadow:0 24px 80px #000b}
+.mod .box.wide{width:min(760px,100%)}
+.mod .x{position:absolute;right:13px;top:11px;width:32px;height:32px;border:1px solid #383c3f;border-radius:2px;background:#1a1c1e;color:#f0eee8;font-size:20px}
+.mod h4{margin:0 35px 7px 0;font:600 27px var(--display);text-transform:uppercase}.mod .sub{margin:0 0 22px;color:#9da2a6;font-size:11px}
+.mod form{display:grid;gap:13px}.mod label{display:block;color:#b9bdc0;font:500 9px 'DM Mono',monospace;letter-spacing:.08em}
+.mod input,.mod select{display:block;width:100%;min-height:40px;margin-top:6px;padding:9px 10px;background:#090a0b;color:#f0eee8;border:1px solid #3a3e42;border-radius:2px;font:12px var(--font)}
+.mod input:focus,.mod select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px #e86b4522}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pb{min-height:39px;padding:0 14px;border:1px solid var(--accent);border-radius:2px;background:var(--accent);color:#15100e;font:700 10px var(--font);letter-spacing:.08em}.pb:hover{background:#f17a54}
+.pb.sec2{background:transparent;color:#d7d7d2;border-color:#414548}
+.msg{color:#aeb3b6;font-size:11px}.lst{margin-top:20px;border-top:1px solid #303437}.li{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #303437}.li .k{color:var(--accent);font:9px 'DM Mono',monospace}.li .n{flex:1;min-width:0;overflow-wrap:anywhere;color:#e8e6e0}.li button{border:1px solid #414548;border-radius:2px;background:#17191b;color:#e8e6e0;padding:7px 9px}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:760px){main{padding-top:34px}.cards{grid-template-columns:1fr}.card{min-height:270px}.sec{margin-top:48px}header{flex-wrap:wrap}.hr{margin-left:auto}.lead{margin-bottom:27px}.about{grid-template-columns:1fr}.drivers{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){header{padding:13px 15px}.logo{font-size:11px}.hr{gap:7px}.lang select{max-width:112px}main{padding-inline:14px}.card{min-height:255px;padding:20px}.card .ico{margin-bottom:22px}.sec-h h3{font-size:24px}.drivers{grid-template-columns:1fr}.discord{align-items:flex-start;flex-direction:column}.row2{grid-template-columns:1fr}.mod .box{padding:20px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body>
