@@ -169,55 +169,6 @@ footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;let
 @media(max-width:760px){.cards{grid-template-columns:1fr}.card{min-height:260px}.gauge{width:52px;height:52px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 
-/* ═══ RACE HUB / FRESH PIT-LANE EDITORIAL SYSTEM ═══ */
-:root{--bg:#f0f0e9;--panel:#fafaf5;--line:#d0d2cc;--text:#161a1e;--muted:#646d75;--silver:#d6d9dd;--accent:#2455dc;--orange:#2455dc;--font:'Manrope',system-ui,sans-serif;--display:'Oswald','Arial Narrow',sans-serif}
-*{box-sizing:border-box}
-body{background:#f0f0e9;color:#161a1e;background-image:linear-gradient(90deg,transparent 0,transparent calc(100% - 1px),#161a1e07 calc(100% - 1px));background-size:72px 100%;font-size:14px}
-.bg{opacity:.04}.glow{display:none}.grid{mask-image:none;-webkit-mask-image:none;background-size:72px 72px;background-image:linear-gradient(#161a1e 1px,transparent 1px),linear-gradient(90deg,#161a1e 1px,transparent 1px)}
-.track{opacity:.04}
-.bar{height:5px;background:#2455dc;animation:none}
-header{padding:16px clamp(16px,5vw,72px);border-bottom:1px solid #c9cbc5;background:#f0f0e9}
-.logo{font-size:12px;letter-spacing:.2em}.logo i{border-color:#161a1e;border-right-color:transparent;opacity:1}
-.lang select{background:#fafaf5;color:#161a1e;border:1px solid #c6c9c7;border-radius:0}.lang::after{color:#4d555c}.lang select option{background:#fafaf5;color:#161a1e}
-main{max-width:1240px;padding:clamp(38px,6vw,78px) clamp(16px,3vw,38px) 48px}
-.eyebrow{color:#2455dc;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.13em}
-.dot{background:#2455dc;box-shadow:none;animation:none;border-radius:0}
-h1{font:600 clamp(52px,8vw,98px)/.9 'Oswald',sans-serif;letter-spacing:-.04em;text-transform:uppercase;margin-bottom:18px}
-h1 span{color:#2455dc}
-.lead{color:#5d656c;font-size:14px;line-height:1.85;max-width:510px;margin-bottom:34px}
-.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.card{min-height:350px;border:1px solid #c8cbc7;border-radius:0;background:#fafaf5;padding:clamp(22px,3vw,36px);box-shadow:5px 5px 0 #161a1e0b;transition:transform .18s,border-color .18s,box-shadow .18s}
-.card::after{content:"";position:absolute;top:0;right:0;width:8px;height:100%;background:#2455dc;transform:scaleY(0);transform-origin:bottom;transition:transform .2s}
-.card:hover{transform:translateY(-3px);border-color:#161a1e;box-shadow:7px 8px 0 #161a1e12}.card:hover::after{transform:scaleY(1)}
-.card .ring{border-color:#d9dbd6;opacity:.8}
-.card .tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:#656d74}
-.card.fuel .tag{color:#2455dc}
-.card h2{font:600 clamp(32px,4vw,48px)/.98 'Oswald',sans-serif;letter-spacing:-.025em;text-transform:uppercase}
-.card p{color:#5d656c;font-size:13px;line-height:1.8}
-.card .go{font-family:'DM Mono',monospace;font-size:10px;color:#161a1e;letter-spacing:.1em}.card .go b{color:#2455dc}
-.card.race .ico circle{stroke:#161a1e}.card.race .ico path{stroke:#2455dc}
-.card.fuel .ico rect:first-of-type{fill:#2455dc}
-.card .gauge{opacity:.7}
-.sec{margin-top:72px}
-.sec-h{border-bottom:1px solid #c9cbc5;padding-bottom:13px}.sec-h h3{font:600 24px 'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.03em}
-.drivers .drv,.drv{background:#fafaf5;border-color:#c9cbc5;border-radius:0}
-.about{background:#fafaf5;border:1px solid #c9cbc5;border-radius:0;padding:24px}
-.about p{color:#4f5860}.pillars{gap:8px}.pillars>*{background:#f0f0e9;border:1px solid #d0d2cc;border-radius:0}
-.discord{background:#161a1e;color:#fafaf5;border:0;border-radius:0;padding:22px}.discord p{color:#c3c8cd}.discord .btn{background:#2455dc;color:white;border:0;border-radius:0}
-.socials a{border-radius:0;border-color:#c9cbc5;background:#fafaf5;color:#161a1e}
-.marquee{border-block:1px solid #c9cbc5;background:#e5e6df;color:#161a1e}
-.mod .box{border-radius:0;border:1px solid #b9bdc0;background:#fafaf5;color:#161a1e;box-shadow:10px 10px 0 #161a1e12}
-.mod .sub{color:#646d75}
-.mod label{color:#4e575f}.mod input,.mod select{background:#f0f0e9;color:#161a1e;border-color:#c9cbc5;border-radius:0}
-.pb{background:#2455dc;color:#fff;border:1px solid #2455dc;border-radius:0}.pb:hover{background:#153bb0}
-.pb.sec2{background:transparent;color:#161a1e;border-color:#c9cbc5}
-.lst{border-top-color:#c9cbc5}.li{border-bottom-color:#d8dad4}.li .k{color:#2455dc}.li button{border-radius:0;border-color:#c9cbc5;color:#161a1e}
-footer{background:#161a1e;color:#c5cbd0;border-top:0}
-a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #2455dc;outline-offset:3px}
-::selection{background:#2455dc;color:#fff}
-@media(max-width:700px){main{padding-top:36px}.cards{grid-template-columns:1fr}.card{min-height:290px}.sec{margin-top:50px}header{flex-wrap:wrap}.lead{margin-bottom:28px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
-
 </style>
 
 <style id="race-hub-nightshift">
