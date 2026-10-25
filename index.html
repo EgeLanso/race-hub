@@ -9,7 +9,7 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="Race Hub">
 <meta property="og:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı"><meta property="og:description" content="Takım yarış sayfamız, benzin hesaplayıcı ve sosyal medya linkleri tek yerde.">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Yarış Sayfamız &amp; Benzin Hesaplayıcı">
-<!-- İsteğe bağlı: Gerçek og:url, og:image, og:image:width ve og:image:height meta etiketlerini yayın adresin belli olunca ekle. -->
+<meta property="og:url" content="https://egelanso.github.io/race-hub/"><meta property="og:image" content="https://egelanso.github.io/race-hub/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:image" content="https://egelanso.github.io/race-hub/og.png">
 <title>Yarış Sayfamız & Benzin Hesaplayıcı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -169,6 +169,49 @@ footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;let
 @media(max-width:760px){.cards{grid-template-columns:1fr}.card{min-height:260px}.gauge{width:52px;height:52px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
+
+<style id="race-hub-refinement">
+/* Race Hub — editorial team portal */
+:root{--bg:#0d0f11;--panel:#15181b;--line:#30353a;--text:#f1f1ed;--muted:#a1a6ab;--silver:#d7dadd;--accent:#d65b3c;--orange:#d65b3c;--font:'Inter',system-ui,sans-serif;--display:'Barlow Condensed','Arial Narrow',sans-serif}
+body{background:#0d0f11;color:var(--text);background-image:linear-gradient(90deg,transparent 0,transparent calc(100% - 1px),#ffffff03 calc(100% - 1px));background-size:88px 100%}
+.bar{height:2px;background:linear-gradient(90deg,#d7dadd 0%,#777e85 38%,#d65b3c 100%);animation:none}
+header{padding-top:20px;padding-bottom:20px;border-bottom:1px solid #282d31}
+.logo{letter-spacing:.24em}
+.logo i{border-color:#d7dadd;border-right-color:transparent}
+main{max-width:1120px;padding-top:clamp(38px,7vw,86px)}
+.eyebrow{font-size:10px;letter-spacing:.19em}
+.dot{background:#d65b3c;box-shadow:none;animation:none}
+h1{font-size:clamp(48px,8vw,92px);letter-spacing:-.035em;line-height:.91}
+h1 span{color:#d65b3c}
+.lead{max-width:570px;font-size:14px;line-height:1.85;margin-bottom:42px}
+.cards{gap:16px}
+.card{border-radius:3px;background:#131619;border:1px solid #30353a;min-height:290px;padding:30px;box-shadow:none;transition:transform .22s,border-color .22s,background .22s}
+.card:hover{transform:translateY(-3px);border-color:#697078;background:#171a1e}
+.card .ring{border-color:#343a40}
+.card .tag{letter-spacing:.17em;color:#b2b7bc}
+.card h2{font-size:clamp(27px,3vw,38px);letter-spacing:-.025em}
+.card p{max-width:310px;color:#a1a6ab;line-height:1.8}
+.card .go{color:#f1f1ed;letter-spacing:.13em}
+.card .go b{color:#d65b3c}
+.card.race .ico{color:#d7dadd}
+.card.fuel .ico rect:first-of-type{fill:#d65b3c}
+.sec{margin-top:74px}
+.sec-h{border-bottom-color:#34393e}
+.sec-h h3{letter-spacing:.11em}
+.drivers .drv,.drv{border-color:#30353a}
+.about,.discord{border-color:#30353a;background:#131619}
+.pillars{gap:10px}
+.pillars>*{border-radius:2px}
+.discord .btn,.pb{border-radius:2px}
+.discord .btn{border-color:#4a5056}
+footer{border-top:1px solid #272c31;color:#858b91;padding:22px}
+.mod .box{border-radius:3px;border-color:#3b4147;background:#121518}
+input,select,textarea{border-radius:2px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #d65b3c;outline-offset:3px}
+::selection{background:#d65b3c;color:#fff}
+@media(max-width:760px){main{padding-top:40px}.card{min-height:250px;padding:24px}.sec{margin-top:52px}header{padding-inline:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 <div class="bg" aria-hidden="true">
@@ -230,7 +273,7 @@ footer{padding:24px 20px 30px;text-align:center;color:#5d6269;font-size:11px;let
       <span class="go"><span data-i18n="raceGo">SAYFAYA GİT</span> <b>→</b></span>
     </a>
 
-    <!-- TODO: Apex Fuel Calculator yayımlanınca aşağıdaki href değerini gerçek GitHub Pages adresinle değiştir. -->
+    <!-- Apex Fuel Calculator -->
     <a class="card fuel rv d5" href="https://egelanso.github.io/apex-fuel/">
       <i class="ring"></i>
       <svg class="ico" width="56" height="56" viewBox="0 0 52 52" aria-hidden="true"><rect x="10" y="8" width="24" height="36" rx="3" fill="#ff6b2c"/><rect x="14" y="13" width="16" height="11" rx="2" fill="#1fb6d6"/><rect x="7" y="44" width="30" height="4" rx="2" fill="#35566b"/><path d="M34 18h4a3 3 0 0 1 3 3v15" fill="none" stroke="#35566b" stroke-width="3" stroke-linecap="round"/></svg>
